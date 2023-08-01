@@ -10,7 +10,7 @@
 <body>
 <p>This add-in will add custom variables.</p>
 <div id="testDiv"></div>
-<button id="helloButton">Variable 4</button>
+<button id="helloButton">Variable 5</button>
 </body>
 
 <script>
@@ -21,6 +21,7 @@
                 const btn = document.createElement('button');
                 btn.setAttribute('class', `btn-${i}`);
                 btn.textContent = `variable ${i}`
+                document.getElementById("testDiv").append(btn);
                 btn.addEventListener("click", function () {
                     return Word.run((context) => {
 
@@ -31,7 +32,6 @@
                         return context.sync();
                     });
                 })
-                document.getElementById("testDiv").append(btn);
             }
             //document.getElementById("helloButton").onclick = sayHello;
         }
