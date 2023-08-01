@@ -26,6 +26,7 @@
             // insert a paragraph at the start of the document.
             const paragraph = context.document.body.insertParagraph("Variable 1", Word.InsertLocation.end);
             paragraph.font.highlightColor = '#FFFF00';
+            paragraph.font.size = 60;
 
             // sync the context to run the previous API call, and return.
             return context.sync();
