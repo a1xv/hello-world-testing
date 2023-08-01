@@ -21,10 +21,19 @@
                 const btn = document.createElement('button');
                 btn.setAttribute('class', `btn-${i}`);
                 btn.textContent = `variable ${i}`
-                //btn.addEventListener("click", sayHello(`variable ${i}`))
+                btn.addEventListener("click", function () {
+                    return Word.run((context) => {
+
+                        // insert a paragraph at the start of the document.
+                        const paragraph = context.document.body.insertParagraph(`variable ${i}`, Word.InsertLocation.end);
+
+                        // sync the context to run the previous API call, and return.
+                        return context.sync();
+                    });
+                })
                 document.getElementById("testDiv").append(btn);
             }
-            document.getElementById("helloButton").onclick = sayHello;
+            //document.getElementById("helloButton").onclick = sayHello;
         }
     });
 
