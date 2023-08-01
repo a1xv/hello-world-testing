@@ -10,7 +10,7 @@
 <body>
 <p>This add-in will add custom variables.</p>
 <div id="testDiv"></div>
-<button id="helloButton">Variable 3</button>
+<button id="helloButton">Variable 4</button>
 </body>
 
 <script>
@@ -24,15 +24,15 @@
                 //btn.addEventListener("click", sayHello(`variable ${i}`))
                 document.getElementById("testDiv").append(btn);
             }
-            //document.getElementById("helloButton").onclick = sayHello;
+            document.getElementById("helloButton").onclick = sayHello;
         }
     });
 
-    function sayHello(variableText) {
+    function sayHello() {
         return Word.run((context) => {
 
             // insert a paragraph at the start of the document.
-            const paragraph = context.document.body.insertParagraph(variableText, Word.InsertLocation.end);
+            const paragraph = context.document.body.insertParagraph(, Word.InsertLocation.end);
             paragraph.font.highlightColor = '#FFFF00';
             paragraph.font.size = 60;
 
