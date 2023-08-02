@@ -23,24 +23,9 @@
                 .then(json => {
                     console.log(json);
                     data = json;
+                    console.log('data', data);
+                    onFetch(data);
                 })
-            data.forEach((el, index) => {
-                console.log(el);
-                const btn = document.createElement('button');
-                btn.setAttribute('class', `btn-${index}`);
-                btn.textContent = `variable ${index}`
-                document.getElementById("testDiv").append(btn);
-                btn.addEventListener("click", function () {
-                    return Word.run((context) => {
-
-                        // insert a paragraph at the start of the document.
-                        const paragraph = context.document.body.insertParagraph(`variable ${index}`, Word.InsertLocation.end);
-
-                        // sync the context to run the previous API call, and return.
-                        return context.sync();
-                    });
-                })
-            })
             // for (let i = 0; i < 4; i++) {
             //     const btn = document.createElement('button');
             //     btn.setAttribute('class', `btn-${i}`);
@@ -60,6 +45,26 @@
             //document.getElementById("helloButton").onclick = sayHello;
         }
     });
+
+    function onFetch(data) {
+        data.forEach((el, index) => {
+            console.log(el);
+            const btn = document.createElement('button');
+            btn.setAttribute('class', `btn-${index}`);
+            btn.textContent = `variable ${index}`
+            document.getElementById("testDiv").append(btn);
+            btn.addEventListener("click", function () {
+                return Word.run((context) => {
+
+                    // insert a paragraph at the start of the document.
+                    const paragraph = context.document.body.insertParagraph(`variable ${index}`, Word.InsertLocation.end);
+
+                    // sync the context to run the previous API call, and return.
+                    return context.sync();
+                });
+            })
+        })
+    }
 
     function sayHello() {
         return Word.run((context) => {
