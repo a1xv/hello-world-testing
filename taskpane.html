@@ -10,32 +10,53 @@
 <body>
 <p>This add-in will add custom variables.</p>
 <div id="testDiv"></div>
-<button id="helloButton">Variable 7</button>
+<button id="helloButton">Variable 8</button>
 </body>
 
 <script>
     Office.onReady((info) => {
         // Check that we loaded into Word
         if (info.host === Office.HostType.Word) {
+            let data = [];
             fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
                 .then(response => response.json())
-                .then(json => console.log(json))
-            for (let i = 0; i < 4; i++) {
+                .then(json => {
+                    console.log(json);
+                    data = json;
+                })
+            data.forEach((el, index) => {
+                console.log(el);
                 const btn = document.createElement('button');
-                btn.setAttribute('class', `btn-${i}`);
-                btn.textContent = `variable ${i}`
+                btn.setAttribute('class', `btn-${index}`);
+                btn.textContent = `variable ${index}`
                 document.getElementById("testDiv").append(btn);
                 btn.addEventListener("click", function () {
                     return Word.run((context) => {
 
                         // insert a paragraph at the start of the document.
-                        const paragraph = context.document.body.insertParagraph(`variable ${i}`, Word.InsertLocation.end);
+                        const paragraph = context.document.body.insertParagraph(`variable ${index}`, Word.InsertLocation.end);
 
                         // sync the context to run the previous API call, and return.
                         return context.sync();
                     });
                 })
-            }
+            })
+            // for (let i = 0; i < 4; i++) {
+            //     const btn = document.createElement('button');
+            //     btn.setAttribute('class', `btn-${i}`);
+            //     btn.textContent = `variable ${i}`
+            //     document.getElementById("testDiv").append(btn);
+            //     btn.addEventListener("click", function () {
+            //         return Word.run((context) => {
+            //
+            //             // insert a paragraph at the start of the document.
+            //             const paragraph = context.document.body.insertParagraph(`variable ${i}`, Word.InsertLocation.end);
+            //
+            //             // sync the context to run the previous API call, and return.
+            //             return context.sync();
+            //         });
+            //     })
+            // }
             //document.getElementById("helloButton").onclick = sayHello;
         }
     });
